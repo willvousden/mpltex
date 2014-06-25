@@ -10,7 +10,7 @@ setup(
         version='0.1.0',
         author='Will Vousden',
         author_email='will@vousden.me.uk',
-        packages=['mpltex', 'mpltex.tests'],
+        packages=['mpltex'],
         url='https://github.com/willvousden/mpltex',
         description='Utility for plotting for LaTeX from Matplotlib.',
         license='',
