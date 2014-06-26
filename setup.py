@@ -6,7 +6,7 @@ except ImportError:
     from distutils.core import setup
 
 setup(
-        name='MplTex',
+        name='mpltex',
         version='0.1.0',
         author='Will Vousden',
         author_email='will@vousden.me.uk',
