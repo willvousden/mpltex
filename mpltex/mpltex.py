@@ -3,13 +3,13 @@ __all__ = ['getContext']
 import matplotlib as mpl
 from math import sqrt
 
-def getContext(columnWidth, fontSize, aspectRatio=None):
-    if aspectRatio is None:
-        aspectRatio = (1 + sqrt(5)) / 2
-
+def getContext(columnWidth, fontSize, aspectRatio=None, height=None):
     dpi = 72.27 # One inch in points (according to TeX).
     width = columnWidth / dpi
-    height = width / aspectRatio
+    if height is None:
+        if aspectRatio is None:
+            aspectRatio = (1 + sqrt(5)) / 2
+        height = width / aspectRatio
 
     rc = {}
     rc['text.latex.unicode'] = True
