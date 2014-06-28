@@ -22,7 +22,6 @@ setup(
         packages=find_packages(exclude=['docs', 'tests*']),
         url='https://github.com/willvousden/mpltex',
         description='Utility for plotting for LaTeX from Matplotlib.',
-        license='',
         long_description='',
         install_requires=['matplotlib']
 )
