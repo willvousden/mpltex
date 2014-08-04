@@ -1,10 +1,13 @@
-__all__ = ['getContext']
+__all__ = ['getDpi', 'getContext']
 
 import matplotlib as mpl
 from math import sqrt
 
+def getDpi():
+    return 72.27
+
 def getContext(columnWidth, fontSize, aspectRatio=None, height=None):
-    dpi = 72.27 # One inch in points (according to TeX).
+    dpi = getDpi() # One inch in points (according to TeX).
     width = columnWidth / dpi
     if height is None:
         if aspectRatio is None:
