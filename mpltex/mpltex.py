@@ -48,6 +48,13 @@ def _getParams(preset=None, width=None, fontSize=None, aspectRatio=None, height=
     else:
         width0, fontSize0, aspectRatio0 = None, None, None
 
+    if width is not None:
+        if width <= 1:
+            assert width0 is not None
+            width *= width0
+    else:
+        width = width0
+
     width = width if width is not None else width0
     fontSize = fontSize if fontSize is not None else fontSize0
     aspectRatio = aspectRatio if aspectRatio is not None else aspectRatio0
