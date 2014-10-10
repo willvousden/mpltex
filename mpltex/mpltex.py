@@ -40,35 +40,27 @@ def getContext(*args, **kwargs):
 
     return mpl.rc_context(rc)
 
-#def updateFigure(figure, *args, **kwargs):
-    #width, height, dpi, fontSize, tickFontSize = _getParams(*args, **kwargs)
-
-    #figure.set_size_inches(width, height)
-    #figure.set_dpi(dpi)
-    #figure.
-
-    #for a in figure.as_list():
-        #for item in a.get_xticklabels() + a.get_yticklabels():
-            #item.set_fontsize(tickFontSize)
-
-        #for item in [a.title, a.xaxis.label, a.yaxis.label]:
-            #item.set_fontsize(fontSize)
-
-        #a.
-
-def _getParams(preset=None, columnWidth=None, fontSize=None, aspectRatio=None, height=None):
+def _getParams(preset=None, width=None, fontSize=None, aspectRatio=None, height=None):
     if preset is not None:
         assert preset in _presets, \
             'Preset not found.'
-        columnWidth, fontSize, aspectRatio = _presets[preset]
-    assert columnWidth is not None and fontSize is not None, \
+        width0, fontSize0, aspectRatio0 = _presets[preset]
+    else:
+        width0, fontSize0, aspectRatio0 = None, None, None
+
+    width = width if width is not None else width0
+    fontSize = fontSize if fontSize is not None else fontSize0
+    aspectRatio = aspectRatio if aspectRatio is not None else aspectRatio0
+
+    assert width is not None and fontSize is not None, \
         'Column width or font size missing.'
 
     dpi = getDpi() # One inch in points (according to TeX).
-    width = columnWidth / dpi
     if height is None:
         if aspectRatio is None:
             aspectRatio = _goldenRatio
         height = width / aspectRatio
+    width /= dpi
+    height /= dpi
 
     return width, height, dpi, fontSize, fontSize * 0.8
