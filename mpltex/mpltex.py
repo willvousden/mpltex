@@ -10,7 +10,8 @@ _goldenRatio = (1 + sqrt(5)) / 2
 _presets = {
     'revtex12-single': (468, 10.95, None), # Single-column revtex; 12pt.
     'mnras': (240, 8, _goldenRatio * 0.8), # Double-column MNRAS; default font size.
-    'mnras-2': (504, 8, _goldenRatio) # Single-column MNRAS; default font size.
+    'mnras-2': (504, 8, _goldenRatio), # Single-column MNRAS; default font size.
+    'thesis': (426, 12, _goldenRatio)
 }
 
 def getPreset(preset):
