@@ -1,4 +1,4 @@
-__all__ = ['getDpi', 'getContext', 'getPreset']
+__all__ = ['getDpi', 'getContext', 'getPreset', 'getScreenContext']
 
 import matplotlib as mpl
 from math import sqrt
@@ -6,18 +6,20 @@ from math import sqrt
 def getDpi():
     return 72.27
 
+_screenDpi = 96
+_screenFontSize = 12
 _goldenRatio = (1 + sqrt(5)) / 2
 _presets = {
     'revtex12-single': (468, 10.95, None), # Single-column revtex; 12pt.
-    'mnras': (240, 8, _goldenRatio * 0.8), # Double-column MNRAS; default font size.
-    'mnras-2': (504, 8, _goldenRatio), # Single-column MNRAS; default font size.
+    'mnras': (240, 8, _goldenRatio), # Double-column MNRAS; default font size.
+    'mnras-2': (504, 8, _goldenRatio * 1.2), # Single-column MNRAS; default font size.
     'thesis': (426, 12, _goldenRatio)
 }
 
 def getPreset(preset):
     return _presets[preset]
 
-def getContext(*args, **kwargs):
+def getContext(returnParams=False, *args, **kwargs):
     width, height, dpi, fontSize, tickFontSize = _getParams(*args, **kwargs)
 
     rc = {}
@@ -39,7 +41,37 @@ def getContext(*args, **kwargs):
     rc['figure.figsize'] = width, height
     rc['figure.dpi'] = dpi
 
-    return mpl.rc_context(rc)
+    if returnParams:
+        return rc
+    else:
+        return mpl.rc_context(rc)
+
+def getScreenContext(pixelWidth=None, fontSize=None, aspectRatio=None, returnParams=False):
+    if aspectRatio is None:
+        aspectRatio = _goldenRatio
+
+    if fontSize is None:
+        fontSize = _screenFontSize
+
+    params = {
+        'figure.dpi': _screenDpi,
+        'text.usetex': False,
+        'mathtext.fontset': 'stixsans',
+        'font.family': 'Bitstream Vera Sans',
+        'font.size': fontSize,
+        'axes.labelsize': fontSize,
+        'legend.fontsize': fontSize,
+        'xtick.labelsize': fontSize * 0.8,
+        'ytick.labelsize': fontSize * 0.8,
+        }
+    if pixelWidth is not None:
+        pixelHeight = pixelWidth / aspectRatio
+        params['figure.figsize'] = (pixelWidth / _screenDpi, pixelHeight / _screenDpi)
+
+    if returnParams:
+        return params
+    else:
+        return mpl.rc_context(params)
 
 def _getParams(preset=None, width=None, fontSize=None, aspectRatio=None, height=None):
     if preset is not None:
