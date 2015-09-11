@@ -13,7 +13,8 @@ _presets = {
     'revtex12-single': (468, 10.95, None), # Single-column revtex; 12pt.
     'mnras': (240, 8, _goldenRatio), # Double-column MNRAS; default font size.
     'mnras-2': (504, 8, _goldenRatio * 1.2), # Single-column MNRAS; default font size.
-    'thesis': (426, 10.95, _goldenRatio)
+    'thesis': (300, 8, _goldenRatio),
+    'thesis-wide': (426, 8, _goldenRatio)
 }
 
 def getPreset(preset):
